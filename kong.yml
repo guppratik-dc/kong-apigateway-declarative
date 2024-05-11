@@ -1,0 +1,22 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+- name: httpbin-service
+  url: https://httpbin.org/
+  plugins:
+  - name: rate-limiting
+    config:
+      second: 5
+      minute: 5
+  - name: key-auth
+  - name: correlation-id
+  routes:
+  - name: bin-route
+    paths:
+    - /bg-get
+
+consumers:
+- username: uber-eats
+  keyauth_credentials:
+  - key: uber-key
